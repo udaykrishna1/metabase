@@ -223,7 +223,10 @@
 
          :fk->
          (resolve-fk context &match))
-       (m/update-existing :fields distinct))))
+       (m/update-existing :fields (fn [fields]
+                                    (if (keyword? fields)
+                                      fields
+                                      (-> fields distinct vec)))))))
 
 
 ;;; +----------------------------------------------------------------------------------------------------------------+
