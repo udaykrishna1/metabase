@@ -153,7 +153,7 @@
     (or (when-not *ignore-cached-results*
           (log/tracef "Looking for cached results for query with hash %s younger than %s\n"
                       (pr-str (i/short-hex-hash query-hash)) (u/format-seconds max-age-seconds))
-          (i/with-cached-results *backend* query-hash 1000  [is]
+          (i/with-cached-results *backend* query-hash max-age-seconds  [is]
             (when is
               (impl/with-reducible-deserialized-results [[metadata reducible-rows] is]
                 (log/tracef "Found cached results. Version: %s" (pr-str (:cache-version metadata)))
